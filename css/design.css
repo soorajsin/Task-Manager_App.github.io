@@ -1,7 +1,27 @@
-.hand{
+.hand {
           cursor: pointer;
 }
-.size{
+
+.size {
           width: 72px;
           height: 72px;
+}
+
+.conatiner {
+          margin-left: 20px;
+          margin-right: 20px;
+          margin-bottom: 5px;
+}
+
+.conatiner h1 {
+          margin-bottom: 20px;
+}
+
+.conatiner .form-group {
+          margin-bottom: 15px;
+}
+
+.conatiner .button {
+          margin-bottom: 15px;
+          flex-wrap: wrap;
 }

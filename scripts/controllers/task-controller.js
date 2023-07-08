@@ -1,5 +1,8 @@
 //DOM (I/O)
 import {
+          doAjax
+} from '../data/services/ajax.js';
+import {
           TASK_OPERATIONS
 } from '../data/services/task-operations.js';
 window.addEventListener('load', init); //second thing:-   first time load and after call bind
@@ -21,6 +24,42 @@ function bindEvents() {
           document.querySelector('#remove').addEventListener('click', deleteForever);
           document.querySelector('#save').addEventListener('click', save);
           document.querySelector('#load').addEventListener('click', load);
+          document.querySelector('#update').addEventListener('click', update);
+          document.querySelector('#load-from-server').addEventListener('click', loadFromServer);
+          document.querySelector('#clear-all').addEventListener('click', clearAll);
+}
+
+
+function clearAll() {
+          document.querySelector('#total').innerText = '';
+          document.querySelector('#mark').innerText = '';
+          document.querySelector('#unmark').innerText = '';
+          document.querySelector('#tasks').innerText = '';
+          for (let field of fields) { //use for access
+                    document.querySelector(`#${field}`).value = '';
+          }
+}
+
+async function loadFromServer() {
+          try {
+                    const result = await doAjax();
+                    console.log('Result of Task Json is', result['tasks']);
+                    TASK_OPERATIONS.tasks = result['tasks'];
+                    printTaskTable(TASK_OPERATIONS.tasks);
+                    showCount();
+          } catch (err) {
+                    alert("Some error");
+                    console.log(err);
+          }
+
+}
+
+function update() {
+          for (let field of fields) {
+                    taskObject[field] = document.querySelector(`#${field}`).value;
+          }
+          printTaskTable(TASK_OPERATIONS.getTasks());
+          showCount();
 }
 
 function save() {
@@ -78,10 +117,12 @@ function addTask() {
           clearFields();
 }
 
+let taskObject;
+
 function edit() {
           const icon = this;
           const taskId = icon.getAttribute('task-id');
-          const taskObject = TASK_OPERATIONS.search(taskId);
+          taskObject = TASK_OPERATIONS.search(taskId);
           if (taskObject) {
                     for (let key in taskObject) {
                               if (key === 'isMarked') {
@@ -89,6 +130,7 @@ function edit() {
                               }
                               document.querySelector(`#${key}`).value = taskObject[key];
                     }
+                    document.querySelector('#update').disabled = false;
           }
 }
 

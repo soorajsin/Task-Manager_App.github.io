@@ -1,8 +1,8 @@
  import Task from "../models/task.js";
  export const TASK_OPERATIONS = { //constant
            tasks: [],
-           getTasks(){
-                    return this.tasks;
+           getTasks() {
+                     return this.tasks;
            },
            getSize() {
                      return this.tasks.length;
