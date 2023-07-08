@@ -1,3 +1,9 @@
+setTimeout(function () {
+          document.getElementById('loading').style.display = 'none';
+}, 3000);
+
+
+
 //DOM (I/O)
 import {
           doAjax
