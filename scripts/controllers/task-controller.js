@@ -163,7 +163,7 @@ function createImage(url) {
 
 function showColor(color) {
           const divTag = document.createElement('div');
-          divTag.style = "width:100px; hieght:100px; background-color:" + color;
+          divTag.style = "width: 72px; height: 72px; background-color: " + color;
           return divTag;
 }
 
